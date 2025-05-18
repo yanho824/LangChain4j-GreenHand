@@ -1,4 +1,3 @@
-```markdown
 # LangChain4j AI Assistant
 
 A Spring Boot application demonstrating AI integration using LangChain4j framework with DeepSeek API.
