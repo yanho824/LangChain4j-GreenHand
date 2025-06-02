@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @Tag(name = "硅谷小智")
 @RestController
@@ -16,9 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class XiaozhiController {
     @Autowired
     private XiaozhiAgent xiaozhiAgent;
-    @Operation(summary = "对话")
+/**   @Operation(summary = "对话")
     @PostMapping("/chat")
     public String chat(@RequestBody ChatForm chatForm)  {
+        return xiaozhiAgent.chat(chatForm.getMemoryId(), chatForm.getMessage());
+    }
+ */
+    @Operation(summary = "对话")
+    @PostMapping(value = "/chat", produces = "text/stream;charset=utf-8")
+    public Flux<String> chat(@RequestBody ChatForm chatForm)  {
         return xiaozhiAgent.chat(chatForm.getMemoryId(), chatForm.getMessage());
     }
 }
